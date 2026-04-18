@@ -13,7 +13,10 @@ public class FornsparDbContextFactory : IDesignTimeDbContextFactory<FornsparDbCo
             .Build();
 
         var optionsBuilder = new DbContextOptionsBuilder<FornsparDbContext>();
-        optionsBuilder.UseNpgsql(config.GetConnectionString("Fornspar"));
+        optionsBuilder.UseNpgsql(config.GetConnectionString("Fornspar"), o =>
+        {
+            o.UseNetTopologySuite();
+        });
 
         return new FornsparDbContext(optionsBuilder.Options);
     }
