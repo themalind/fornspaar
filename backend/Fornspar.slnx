@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Fornspar.Data/Fornspar.Data.csproj" />
+  <Project Path="Fornspar.WebApi/Fornspar.WebApi.csproj" />
+</Solution>
