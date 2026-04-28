@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-          "name": "C#: WebApi Debug",
+          "name": "WebApi Debug",
           "type": "dotnet",
           "request": "launch",
           "projectPath": "${workspaceFolder}/backend/Fornspar.WebApi/Fornspar.WebApi.csproj",
@@ -14,6 +14,12 @@
             "pattern": "Now listening on: (https?://\\S+)",
             "uriFormat": "%s/swagger"
           }
+        },
+        {
+          "name": "Importer",
+          "type": "dotnet",
+          "request": "launch",
+          "projectPath": "${workspaceFolder}/backend/Fornspar.Importer/Fornspar.Importer.csproj"
         }
 
     ]

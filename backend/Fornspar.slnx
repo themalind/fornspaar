@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="Fornspar.Core/Fornspar.Core.csproj" />
   <Project Path="Fornspar.Data/Fornspar.Data.csproj" />
+  <Project Path="Fornspar.Importer/Fornspar.Importer.csproj" />
   <Project Path="Fornspar.WebApi/Fornspar.WebApi.csproj" />
 </Solution>
