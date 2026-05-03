@@ -22,7 +22,7 @@ public class Remnant
     public string? Terrain { get; init; }
     public string? Orientation { get; init; }
 
-    public required Geometry Geometry { get; init; }
+    public required GeometryCollection Geometries { get; init; }
 
     public required RemnantType RemnantType { get; init; }
     public RemnantPlacement? RemnantPlacement { get; init; }
