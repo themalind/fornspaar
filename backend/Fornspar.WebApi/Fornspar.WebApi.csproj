@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="../Fornspar.Core/Fornspar.Core.csproj" />
     <ProjectReference Include="../Fornspar.Data/Fornspar.Data.csproj" />
+    <ProjectReference Include="../Fornspar.WebApi.Contracts/Fornspar.WebApi.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
