@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Fornspar.Data;
+using Microsoft.Extensions.Logging;
 
 namespace Fornspar.Etl;
 
@@ -17,13 +18,7 @@ internal class Program
             })
             .ConfigureServices((hostBuilderContext, services) =>
             {
-                services.AddDbContextFactory<FornsparDbContext>(optionsBuilder =>
-                {
-                    optionsBuilder.UseNpgsql(hostBuilderContext.Configuration.GetConnectionString("Fornspar"), o =>
-                    {
-                        o.UseNetTopologySuite();
-                    });
-                });
+                services.AddFornsparData(hostBuilderContext.Configuration);
 
                 services.AddTransient<RemnanTypeImporter>();
                 services.AddTransient<RemnantImporter>();
