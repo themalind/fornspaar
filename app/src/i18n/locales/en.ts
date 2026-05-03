@@ -5,6 +5,9 @@ export default {
   },
   drawer: {
     menuPlaceholder: "Menu content goes here",
+    darkMode: "Dark mode",
+    lightMode: "Light mode",
+    language: "English",
   },
   auth: {
     login: "Log in",

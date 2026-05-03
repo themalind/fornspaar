@@ -5,6 +5,9 @@ export default {
   },
   drawer: {
     menuPlaceholder: "Menyinnehåll kommer här",
+    darkMode: "Mörkt läge",
+    lightMode: "Ljust läge",
+    language: "Svenska",
   },
   auth: {
     login: "Logga in",
