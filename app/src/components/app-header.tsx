@@ -26,7 +26,7 @@ export default function AppHeader() {
         style={s.menu}
         hitSlop={8}
       >
-        <Ionicons name="menu-outline" size={28} color={colors.text} />
+        <Ionicons name="menu-outline" size={28} color="#ffffff" />
       </Pressable>
     </View>
   );

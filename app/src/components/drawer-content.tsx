@@ -1,13 +1,17 @@
+import { useLanguage } from "@/src/i18n/useLanguage";
 import { useTheme } from "@/src/theme";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function DrawerContent(props: DrawerContentComponentProps) {
-  const { colors } = useTheme();
+  const { colors, dark, toggleTheme } = useTheme();
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
+  const { language, toggleLanguage } = useLanguage();
 
   return (
     <View
@@ -32,6 +36,30 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
           {t("drawer.menuPlaceholder")}
         </Text>
       </View>
+      <Pressable onPress={toggleLanguage}>
+        <View style={[styles.footer, { borderTopColor: colors.border }]}>
+          <Text style={[styles.footerLabel, { color: colors.text }]}>
+            {t("drawer.language")}
+          </Text>
+          <Text style={[styles.footerLabel, { color: colors.primary }]}>
+            {language.toUpperCase()}
+          </Text>
+        </View>
+      </Pressable>
+
+      <Pressable onPress={toggleTheme}>
+        <View style={[styles.footer, { borderTopColor: colors.border }]}>
+          <Text style={[styles.footerLabel, { color: colors.text }]}>
+            {dark ? t("drawer.darkMode") : t("drawer.lightMode")}
+          </Text>
+
+          {dark ? (
+            <AntDesign name="moon" size={24} color={colors.primary} />
+          ) : (
+            <AntDesign name="sun" size={24} color={colors.primary} />
+          )}
+        </View>
+      </Pressable>
     </View>
   );
 }
@@ -69,6 +97,16 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   placeholder: {
+    fontSize: 14,
+  },
+  footer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 20,
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  footerLabel: {
     fontSize: 14,
   },
 });
