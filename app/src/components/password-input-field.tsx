@@ -35,7 +35,7 @@ export default function PasswordInputField({
     <View
       style={[
         s.container,
-        { backgroundColor: colors.neutral },
+        { backgroundColor: colors.background },
         error && { borderWidth: 1, borderColor: colors.tertiary },
       ]}
     >

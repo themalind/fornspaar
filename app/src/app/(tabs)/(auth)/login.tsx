@@ -2,10 +2,10 @@ import PasswordInputField from "@/src/components/password-input-field";
 import { useTheme } from "@/src/theme";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
+import { useEffect, useMemo } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -17,35 +17,38 @@ import {
 } from "react-native";
 import { z } from "zod";
 
-function createLoginSchema(t: (key: string) => string) {
-  return z.object({
-    email: z.email(t("auth.emailInvalid")),
-    password: z
-      .string()
-      .min(1, t("auth.passwordRequired"))
-      .min(8, t("auth.passwordTooShort")),
-  });
-}
-
 export default function LoginScreen() {
   const { colors } = useTheme();
   const { t } = useTranslation();
 
-  const loginSchema = createLoginSchema(t);
+  const loginSchema = useMemo(
+    () =>
+      z.object({
+        email: z.email(t("auth.emailInvalid")),
+        password: z
+          .string()
+          .min(1, t("auth.passwordRequired"))
+          .min(8, t("auth.passwordTooShort")),
+      }),
+    [t],
+  );
   type FormFields = z.infer<typeof loginSchema>;
 
   const {
     control,
     handleSubmit,
+    trigger,
     formState: { errors, isSubmitting },
   } = useForm<FormFields>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
   });
 
-  const onSubmit: SubmitHandler<FormFields> = async (data) => {
-    Alert.alert("Inloggad");
-  };
+  useEffect(() => {
+    trigger();
+  }, [t, trigger]);
+
+  const onSubmit: SubmitHandler<FormFields> = async (data) => {};
 
   return (
     <KeyboardAvoidingView
@@ -62,7 +65,7 @@ export default function LoginScreen() {
             <View style={[s.logo, { backgroundColor: colors.tertiary }]}>
               <Text style={s.logoRune}>ᚱ</Text>
             </View>
-            <Text style={s.title}>foᚱnspår</Text>
+            <Text style={[s.title, { color: colors.text }]}>foᚱnspår</Text>
           </View>
           <View style={s.welcomeMsg}>
             <Text style={{ color: colors.secondary, fontSize: 18 }}>
@@ -80,7 +83,11 @@ export default function LoginScreen() {
                 onChangeText={onChange}
                 style={[
                   s.textInput,
-                  { color: colors.text, backgroundColor: colors.neutral },
+                  { color: colors.text, backgroundColor: colors.background },
+                  errors.email && {
+                    borderWidth: 1,
+                    borderColor: colors.tertiary,
+                  },
                 ]}
                 value={value}
                 placeholder={t("auth.email")}

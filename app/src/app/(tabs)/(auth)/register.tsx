@@ -2,10 +2,10 @@ import PasswordInputField from "@/src/components/password-input-field";
 import { useTheme } from "@/src/theme";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
+import { useEffect, useMemo } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -17,52 +17,55 @@ import {
 } from "react-native";
 import { z } from "zod";
 
-function createLoginSchema(t: (key: string) => string) {
-  return z
-    .object({
-      nickName: z
-        .string()
-        .min(3, t("auth.nameTooShort"))
-        .max(20, t("auth.nameTooLong")),
-      email: z.email(t("auth.emailInvalid")),
-      password: z
-        .string()
-        .min(1, t("auth.passwordRequired"))
-        .min(8, t("auth.passwordTooShort")),
-      confirmPassword: z
-        .string(t("auth.repeatPassword"))
-        .min(8, t("auth.passwordTooShort")),
-    })
-    .superRefine(({ confirmPassword, password }, ctx) => {
-      if (confirmPassword !== password) {
-        ctx.addIssue({
-          code: "custom",
-          message: t("auth.passwordsDontMatch"),
-          path: ["confirmPassword"],
-        });
-      }
-    });
-}
-
 export default function RegisterScreen() {
   const { colors } = useTheme();
   const { t } = useTranslation();
 
-  const loginSchema = createLoginSchema(t);
-  type FormFields = z.infer<typeof loginSchema>;
+  const registerSchema = useMemo(
+    () =>
+      z
+        .object({
+          nickName: z
+            .string()
+            .min(3, t("auth.nameTooShort"))
+            .max(20, t("auth.nameTooLong")),
+          email: z.email(t("auth.emailInvalid")),
+          password: z
+            .string()
+            .min(1, t("auth.passwordRequired"))
+            .min(8, t("auth.passwordTooShort")),
+          confirmPassword: z
+            .string(t("auth.repeatPassword"))
+            .min(8, t("auth.passwordTooShort")),
+        })
+        .superRefine(({ confirmPassword, password }, ctx) => {
+          if (confirmPassword !== password) {
+            ctx.addIssue({
+              code: "custom",
+              message: t("auth.passwordsDontMatch"),
+              path: ["confirmPassword"],
+            });
+          }
+        }),
+    [t],
+  );
+  type FormFields = z.infer<typeof registerSchema>;
 
   const {
     control,
     handleSubmit,
+    trigger,
     formState: { errors, isSubmitting },
   } = useForm<FormFields>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(registerSchema),
     defaultValues: { email: "", password: "", nickName: "" },
   });
 
-  const onSubmit: SubmitHandler<FormFields> = async (data) => {
-    Alert.alert("Inloggad");
-  };
+  useEffect(() => {
+    trigger();
+  }, [t, trigger]);
+
+  const onSubmit: SubmitHandler<FormFields> = async (data) => {};
 
   return (
     <KeyboardAvoidingView
@@ -79,7 +82,7 @@ export default function RegisterScreen() {
             <View style={[s.logo, { backgroundColor: colors.tertiary }]}>
               <Text style={s.logoRune}>ᚱ</Text>
             </View>
-            <Text style={s.title}>foᚱnspår</Text>
+            <Text style={[s.title, { color: colors.text }]}>foᚱnspår</Text>
           </View>
           <View style={s.registerMsg}>
             <Text style={{ color: colors.secondary, fontSize: 18 }}>
@@ -97,7 +100,11 @@ export default function RegisterScreen() {
                 onChangeText={onChange}
                 style={[
                   s.textInput,
-                  { color: colors.text, backgroundColor: colors.neutral },
+                  { color: colors.text, backgroundColor: colors.background },
+                  errors.nickName && {
+                    borderWidth: 1,
+                    borderColor: colors.tertiary,
+                  },
                 ]}
                 value={value}
                 placeholder={t("auth.nickName")}
@@ -125,7 +132,11 @@ export default function RegisterScreen() {
                 onChangeText={onChange}
                 style={[
                   s.textInput,
-                  { color: colors.text, backgroundColor: colors.neutral },
+                  { color: colors.text, backgroundColor: colors.background },
+                  errors.email && {
+                    borderWidth: 1,
+                    borderColor: colors.tertiary,
+                  },
                 ]}
                 value={value}
                 placeholder={t("auth.email")}
