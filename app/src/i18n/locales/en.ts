@@ -1,0 +1,31 @@
+export default {
+  tabs: {
+    explore: "Explore",
+    profile: "Profile",
+  },
+  drawer: {
+    menuPlaceholder: "Menu content goes here",
+  },
+  auth: {
+    login: "Log in",
+    loggingIn: "Logging in....",
+    welcomeBackMsg: "Welcome back!",
+    accessibilityLabel: "Press here to log in",
+    register: "Register",
+    registering: "Creating account...",
+    registerMsg: "Sign up!",
+    email: "Email",
+    password: "Password",
+    emailRequired: "Email is required",
+    emailInvalid: "Enter a valid email",
+    passwordRequired: "Enter a password",
+    passwordTooShort: "Password must be at least 8 characters",
+    notRegistered: "Not a member? Create an account here",
+    alreadyMember: "Already a member? Log in here",
+    repeatPassword: "Repeat password",
+    passwordsDontMatch: "Passwords don't match",
+    nickName: "Nickname",
+    nameTooShort: "Name too short, min 3 characters",
+    nameTooLong: "Name too long max 20 characters",
+  },
+} as const;

@@ -1,0 +1,31 @@
+export default {
+  tabs: {
+    explore: "Upptäck",
+    profile: "Profil",
+  },
+  drawer: {
+    menuPlaceholder: "Menyinnehåll kommer här",
+  },
+  auth: {
+    login: "Logga in",
+    loggingIn: "Loggar in....",
+    welcomeBackMsg: "Välkommen tillbaka!",
+    accessibilityLabel: "Tryck här för att logga in",
+    register: "Registrera",
+    registering: "Skapar konto...",
+    registerMsg: "Registrera dig!",
+    email: "E-post",
+    password: "Lösenord",
+    emailRequired: "Du måste ange en e-post",
+    emailInvalid: "Ange en giltig e-post",
+    passwordRequired: "Ange ett lösenord",
+    passwordTooShort: "Lösenordet måste vara minst 8 tecken",
+    notRegistered: "Inte medlem? Skapa konto här",
+    alreadyMember: "Redan medlem? Logga in här",
+    repeatPassword: "Upprepa lösenord",
+    passwordsDontMatch: "Lösenorden matchar inte",
+    nickName: "Smeknamn",
+    nameTooShort: "Namn för kort, minst 3 tecken",
+    nameTooLong: "Namn för långt, max 20 tecken",
+  },
+} as const;
