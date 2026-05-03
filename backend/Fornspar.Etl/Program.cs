@@ -34,5 +34,8 @@ internal class Program
 
         // var remnantPlacementImporter = scope.ServiceProvider.GetRequiredService<RemnantPlacementImporter>();
         // await remnantPlacementImporter.ExecuteAsync(applicationStoppingToken);
+
+        // var remnantImporter = scope.ServiceProvider.GetRequiredService<RemnantImporter>();
+        // await remnantImporter.ExecuteAsync(applicationStoppingToken);
     }
 }
