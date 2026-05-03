@@ -11,4 +11,7 @@ public class RemnantResponse
 
     public required string RemnantType { get; init; }
     public string? RemnantPlacement { get; init; }
+
+    public required decimal Latitude { get; init; }
+    public required decimal Longitude { get; init; }
 }
